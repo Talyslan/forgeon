@@ -1,6 +1,6 @@
 import fastifyCors from "@fastify/cors";
 import fastifySwagger from "@fastify/swagger";
-import fastifySwaggerUI from "@fastify/swagger-ui";
+import fastifyApiReference from "@scalar/fastify-api-reference";
 import Fastify, { type FastifyInstance } from "fastify";
 import {
     jsonSchemaTransform,
@@ -12,6 +12,7 @@ import { env } from "./config/env";
 // routes
 import AuthRoute from "./routes/auth.route";
 import HealthRoute from "./routes/health.route";
+import SwaggerRoute from "./routes/swagger.route";
 
 export class Application {
     private readonly app: FastifyInstance;
@@ -61,10 +62,6 @@ export class Application {
             transform: jsonSchemaTransform,
         });
 
-        await this.app.register(fastifySwaggerUI, {
-            routePrefix: "/docs",
-        });
-
         await this.app.register(fastifyCors, {
             origin: env.CLIENT_URL,
             methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -76,10 +73,29 @@ export class Application {
             credentials: true,
             maxAge: 86400,
         });
+
+        await this.app.register(fastifyApiReference, {
+            routePrefix: "/docs",
+            configuration: {
+                sources: [
+                    {
+                        title: "Forgeon API",
+                        slug: "forgeon-api",
+                        url: "/swagger.json",
+                    },
+                    {
+                        title: "Auth API",
+                        slug: "auth-api",
+                        url: "/api/auth/open-api/generate-schema",
+                    },
+                ],
+            },
+        });
     }
 
     private async routes() {
         await this.app.register(HealthRoute);
         await this.app.register(AuthRoute);
+        await this.app.register(SwaggerRoute);
     }
 }
