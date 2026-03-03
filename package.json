@@ -1,0 +1,20 @@
+{
+  "name": "forgeon",
+  "version": "1.0.0",
+  "description": "AI-powered web application for generating and managing personalized workout plans for athletes and trainers.",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --watch src/index.ts"
+  },
+  "keywords": [],
+  "author": "Talyslan Canabarro",
+  "license": "MIT",
+  "packageManager": "pnpm@10.30.3",
+  "devDependencies": {
+    "@types/node": "^25.3.3",
+    "eslint": "^10.0.2",
+    "prettier": "^3.8.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
