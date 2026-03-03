@@ -4,7 +4,7 @@
     "description": "AI-powered web application for generating and managing personalized workout plans for athletes and trainers.",
     "type": "module",
     "scripts": {
-        "dev": "tsx --watch src/index.ts"
+        "dev": "tsx --watch src/server.ts"
     },
     "engines": {
         "node": "24.x"
@@ -16,6 +16,7 @@
     "devDependencies": {
         "@eslint/js": "^10.0.1",
         "@types/node": "^25.3.3",
+        "dotenv": "^17.3.1",
         "eslint": "^10.0.2",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-simple-import-sort": "^12.1.1",
@@ -26,6 +27,8 @@
         "typescript-eslint": "^8.56.1"
     },
     "dependencies": {
-        "fastify": "^5.7.4"
+        "fastify": "^5.7.4",
+        "fastify-type-provider-zod": "^6.1.0",
+        "zod": "^4.3.6"
     }
 }
