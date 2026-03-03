@@ -1,12 +1,9 @@
-import app from "./app";
+import { Application } from "./app";
 import { env } from "./config/env";
 
 const PORT = env.PORT;
 
-app.listen({ port: PORT }, (err, address) => {
-    if (err) {
-        app.log.error(err);
-        process.exit(1);
-    }
-    console.log(`Server listening at ${address}`);
-});
+const app = new Application();
+
+await app.init();
+await app.start(PORT);

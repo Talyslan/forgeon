@@ -1,49 +1,69 @@
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUI from "@fastify/swagger-ui";
 import Fastify, { type FastifyInstance } from "fastify";
 import {
+    jsonSchemaTransform,
     serializerCompiler,
     validatorCompiler,
-    type ZodTypeProvider,
 } from "fastify-type-provider-zod";
-import z from "zod";
 
-class Application {
-    public app: FastifyInstance;
+// routes
+import Health from "./routes/health.route";
+
+export class Application {
+    private readonly app: FastifyInstance;
 
     constructor() {
         console.log("App initialized");
         this.app = Fastify();
+    }
 
+    public async init() {
         this.config();
-        this.routes();
+        await this.plugins();
+        await this.routes();
     }
 
-    async routes() {
-        this.app.get("/", async function handler() {
-            return { hello: "world" };
-        });
-
-        this.app.withTypeProvider<ZodTypeProvider>().route({
-            method: "GET",
-            url: "/",
-            schema: {
-                description: "Hello world",
-                tags: ["hello"],
-                response: {
-                    200: z.object({
-                        message: z.string(),
-                    }),
-                },
-            },
-            handler: () => {
-                return { message: "Hello world" };
-            },
-        });
+    public async start(port: number) {
+        try {
+            await this.app.listen({ port });
+            console.log(`🚀 Server running on port ${port}`);
+        } catch (err) {
+            this.app.log.error(err);
+            process.exit(1);
+        }
     }
 
-    async config() {
+    private config() {
         this.app.setValidatorCompiler(validatorCompiler);
         this.app.setSerializerCompiler(serializerCompiler);
     }
-}
 
-export default new Application().app;
+    private async plugins() {
+        await this.app.register(fastifySwagger, {
+            openapi: {
+                info: {
+                    title: "Forgeon API",
+                    description:
+                        "AI-powered web application for generating and managing personalized workout plans for athletes and trainers.",
+                    version: "1.0.0",
+                },
+                servers: [
+                    {
+                        description: "Local",
+                        url: "http://localhost:8080",
+                    },
+                ],
+            },
+            transform: jsonSchemaTransform,
+        });
+
+        await this.app.register(fastifySwaggerUI, {
+            routePrefix: "/docs",
+        });
+    }
+
+    private async routes() {
+        await this.app.register(Health);
+    }
+}
