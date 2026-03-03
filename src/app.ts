@@ -1,3 +1,4 @@
+import fastifyCors from "@fastify/cors";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUI from "@fastify/swagger-ui";
 import Fastify, { type FastifyInstance } from "fastify";
@@ -7,8 +8,10 @@ import {
     validatorCompiler,
 } from "fastify-type-provider-zod";
 
+import { env } from "./config/env";
 // routes
-import Health from "./routes/health.route";
+import AuthRoute from "./routes/auth.route";
+import HealthRoute from "./routes/health.route";
 
 export class Application {
     private readonly app: FastifyInstance;
@@ -61,9 +64,22 @@ export class Application {
         await this.app.register(fastifySwaggerUI, {
             routePrefix: "/docs",
         });
+
+        await this.app.register(fastifyCors, {
+            origin: env.CLIENT_URL,
+            methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            allowedHeaders: [
+                "Content-Type",
+                "Authorization",
+                "X-Requested-With",
+            ],
+            credentials: true,
+            maxAge: 86400,
+        });
     }
 
     private async routes() {
-        await this.app.register(Health);
+        await this.app.register(HealthRoute);
+        await this.app.register(AuthRoute);
     }
 }

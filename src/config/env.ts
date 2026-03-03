@@ -3,9 +3,11 @@ import "dotenv/config";
 import { z } from "zod";
 
 const envSchema = z.object({
-    PORT: z
-        .coerce.number()
-        .default(8080)
+    PORT: z.coerce.number().default(8080),
+    BETTER_AUTH_URL: z.url().default("http://localhost:8080"),
+    BETTER_AUTH_SECRET: z.string(),
+    DATABASE_URL: z.string(),
+    CLIENT_URL: z.url(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
