@@ -1,19 +1,19 @@
 {
-  "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist",
+    "compilerOptions": {
+        "rootDir": "./src",
+        "outDir": "./dist",
 
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "target": "es2024",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "target": "es2024",
 
-    "strict": true,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true
-  },
-  "include": ["src"]
+        "strict": true,
+        "jsx": "react-jsx",
+        "verbatimModuleSyntax": true,
+        "isolatedModules": true,
+        "noUncheckedSideEffectImports": true,
+        "moduleDetection": "force",
+        "skipLibCheck": true
+    },
+    "include": ["src"]
 }

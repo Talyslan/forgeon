@@ -1,28 +1,31 @@
 {
-  "name": "forgeon",
-  "version": "1.0.0",
-  "description": "AI-powered web application for generating and managing personalized workout plans for athletes and trainers.",
-  "type": "module",
-  "scripts": {
-    "dev": "tsx --watch src/index.ts"
-  },
-  "engines": {
-    "node": "24.x"
-  },
-  "keywords": [],
-  "author": "Talyslan Canabarro",
-  "license": "MIT",
-  "packageManager": "pnpm@10.30.3",
-  "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@types/node": "^25.3.3",
-    "eslint": "^10.0.2",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
-    "globals": "^17.4.0",
-    "prettier": "^3.8.1",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.1"
-  }
+    "name": "forgeon",
+    "version": "1.0.0",
+    "description": "AI-powered web application for generating and managing personalized workout plans for athletes and trainers.",
+    "type": "module",
+    "scripts": {
+        "dev": "tsx --watch src/index.ts"
+    },
+    "engines": {
+        "node": "24.x"
+    },
+    "keywords": [],
+    "author": "Talyslan Canabarro",
+    "license": "MIT",
+    "packageManager": "pnpm@10.30.3",
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "@types/node": "^25.3.3",
+        "eslint": "^10.0.2",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-simple-import-sort": "^12.1.1",
+        "globals": "^17.4.0",
+        "prettier": "^3.8.1",
+        "tsx": "^4.21.0",
+        "typescript": "^5.9.3",
+        "typescript-eslint": "^8.56.1"
+    },
+    "dependencies": {
+        "fastify": "^5.7.4"
+    }
 }
