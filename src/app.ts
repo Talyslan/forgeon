@@ -13,13 +13,14 @@ import { env } from "./config/env";
 import AuthRoute from "./routes/auth.route";
 import HealthRoute from "./routes/health.route";
 import SwaggerRoute from "./routes/swagger.route";
+import WorkoutPlansRoute from "./routes/workoutPlans.route";
 
 export class Application {
     private readonly app: FastifyInstance;
 
     constructor() {
         console.log("App initialized");
-        this.app = Fastify();
+        this.app = Fastify({ logger: true });
     }
 
     public async init() {
@@ -97,5 +98,6 @@ export class Application {
         await this.app.register(HealthRoute);
         await this.app.register(AuthRoute);
         await this.app.register(SwaggerRoute);
+        await this.app.register(WorkoutPlansRoute);
     }
 }
