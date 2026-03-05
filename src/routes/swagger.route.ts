@@ -3,7 +3,7 @@ import type { FastifyInstance } from "fastify";
 export default async function SwaggerRoute(app: FastifyInstance) {
     app.route({
         method: "GET",
-        url: "/swagger.json",
+        url: "/",
         schema: {
             hide: true
         },

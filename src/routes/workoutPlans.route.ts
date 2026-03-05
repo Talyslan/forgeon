@@ -1,76 +1,25 @@
 import { fromNodeHeaders } from "better-auth/node";
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
-import z from "zod";
 
-import { WeekDay } from "../generated/prisma/enums";
 import { auth } from "../lib/auth";
+import { ErrorSchema } from "../schemas/errors.schema";
+import { WorkoutPlanSchema } from "../schemas/workout-plan.schema";
 import { CreateWorkoutPlan } from "../use-cases/workout-plans/create-workout-plan";
 import { NotFoundError } from "../util/errors";
 
 export default async function WorkoutPlansRoute(app: FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>().route({
         method: "POST",
-        url: "/workout-plans",
+        url: "/",
         schema: {
-            body: z.object({
-                name: z.string().trim().min(1),
-                workoutDays: z.array(
-                    z.object({
-                        name: z.string().trim().min(1),
-                        weekDay: z.enum(WeekDay),
-                        isRest: z.boolean().default(false),
-                        estimatedDurationInSeconds: z.number().min(1),
-                        exercises: z.array(
-                            z.object({
-                                order: z.number().min(0),
-                                name: z.string().trim().min(1),
-                                sets: z.number().min(1),
-                                reps: z.number().min(1),
-                                restTimeInSeconds: z.number().min(1),
-                            }),
-                        ),
-                    }),
-                ),
-            }),
+            body: WorkoutPlanSchema.omit({ id: true }),
             response: {
-                201: z.object({
-                    id: z.uuid(),
-                    name: z.string().trim().min(1),
-                    workoutDays: z.array(
-                        z.object({
-                            name: z.string().trim().min(1),
-                            weekDay: z.enum(WeekDay),
-                            isRest: z.boolean().default(false),
-                            estimatedDurationInSeconds: z.number().min(1),
-                            exercises: z.array(
-                                z.object({
-                                    order: z.number().min(0),
-                                    name: z.string().trim().min(1),
-                                    sets: z.number().min(1),
-                                    reps: z.number().min(1),
-                                    restTimeInSeconds: z.number().min(1),
-                                }),
-                            ),
-                        }),
-                    ),
-                }),
-                400: z.object({
-                    error: z.string(),
-                    code: z.string(),
-                }),
-                401: z.object({
-                    error: z.string(),
-                    code: z.string(),
-                }),
-                500: z.object({
-                    error: z.string(),
-                    code: z.string(),
-                }),
-                404: z.object({
-                    error: z.string(),
-                    code: z.string(),
-                })
+                201: WorkoutPlanSchema,
+                400: ErrorSchema,
+                401: ErrorSchema,
+                500: ErrorSchema,
+                404: ErrorSchema,
             },
         },
 
@@ -103,12 +52,10 @@ export default async function WorkoutPlansRoute(app: FastifyInstance) {
                         .send({ error: error.message, code: "NOT_FOUND" });
                 }
 
-                return res
-                    .status(500)
-                    .send({
-                        error: "Internal Server Error",
-                        code: "INTERNAL_SERVER_ERROR",
-                    });
+                return res.status(500).send({
+                    error: "Internal Server Error",
+                    code: "INTERNAL_SERVER_ERROR",
+                });
             }
         },
     });
