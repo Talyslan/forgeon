@@ -80,8 +80,7 @@ export default async function WorkoutPlansRoute(app: FastifyInstance) {
         url: "/:workoutPlanId/days/:workoutDayId/sessions",
         schema: {
             tags: ["Workout Plan"],
-            summary:
-                "Start a workout session",
+            summary: "Start a workout session",
             params: z.object({
                 workoutPlanId: z.uuid(),
                 workoutDayId: z.uuid(),

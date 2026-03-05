@@ -35,4 +35,6 @@ paths:
 - **SEMPRE** use Zod v4.
 - Busque sempre validar os dados com o Zod da melhor maneira possível. Exemplo: use z.url(), z.date() etc.
 - **SEMPRE** use `z.uuid()` para validar UUIDs. **NUNCA** use `z.string().uuid()`.
+- **SEMPRE** use `z.url()` para validar URLs. **NUNCA** use `z.string().url()`.
+- **SEMPRE** use `z.enum(WeekDay)` importado de `../generated/prisma/enums` para campos `weekDay`. **NUNCA** use `z.string()` para representar WeekDay.
 - **SEMPRE** use os validadores de data ISO do Zod ao invés de regex manuais: `z.iso.date()` para datas (YYYY-MM-DD), `z.iso.datetime()` para timestamps ISO, `z.iso.time()` para horários e `z.iso.duration()` para durações.
