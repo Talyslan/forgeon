@@ -6,9 +6,14 @@ import z from "zod";
 import { auth } from "../lib/auth";
 import { ErrorSchema } from "../schemas/errors.schema";
 import { WorkoutPlanSchema } from "../schemas/workout-plan.schema";
-import { WorkoutSessionSchema } from "../schemas/workout-session.schema";
+import {
+    UpdateWorkoutSessionBodySchema,
+    UpdateWorkoutSessionResponseSchema,
+    WorkoutSessionSchema,
+} from "../schemas/workout-session.schema";
 import { CreateWorkoutPlan } from "../use-cases/workout-plans/create-workout-plan";
 import { StartWorkoutSession } from "../use-cases/workout-plans/start-workout-session";
+import { UpdateWorkoutSession } from "../use-cases/workout-plans/update-workout-session";
 import {
     ForbiddenError,
     NotFoundError,
@@ -78,8 +83,8 @@ export default async function WorkoutPlansRoute(app: FastifyInstance) {
             summary:
                 "Start a workout session",
             params: z.object({
-                workoutPlanId: z.string().uuid(),
-                workoutDayId: z.string().uuid(),
+                workoutPlanId: z.uuid(),
+                workoutDayId: z.uuid(),
             }),
             response: {
                 201: WorkoutSessionSchema,
@@ -139,6 +144,73 @@ export default async function WorkoutPlansRoute(app: FastifyInstance) {
                     return res.status(409).send({
                         error: error.message,
                         code: "WORKOUT_SESSION_ALREADY_STARTED",
+                    });
+                }
+
+                return res.status(500).send({
+                    error: "Internal Server Error",
+                    code: "INTERNAL_SERVER_ERROR",
+                });
+            }
+        },
+    });
+
+    app.withTypeProvider<ZodTypeProvider>().route({
+        method: "PATCH",
+        url: "/:workoutPlanId/days/:workoutDayId/sessions/:sessionId",
+        schema: {
+            tags: ["Workout Plan"],
+            summary: "Update a workout session",
+            params: z.object({
+                workoutPlanId: z.uuid(),
+                workoutDayId: z.uuid(),
+                sessionId: z.uuid(),
+            }),
+            body: UpdateWorkoutSessionBodySchema,
+            response: {
+                200: UpdateWorkoutSessionResponseSchema,
+                401: ErrorSchema,
+                403: ErrorSchema,
+                404: ErrorSchema,
+                500: ErrorSchema,
+            },
+        },
+        handler: async (req, res) => {
+            try {
+                const session = await auth.api.getSession({
+                    headers: fromNodeHeaders(req.headers),
+                });
+
+                if (!session) {
+                    return res.status(401).send({
+                        error: "Unauthorized",
+                        code: "UNAUTHORIZED",
+                    });
+                }
+
+                const updateWorkoutSession = new UpdateWorkoutSession();
+                const result = await updateWorkoutSession.execute({
+                    userId: session.user.id,
+                    workoutPlanId: req.params.workoutPlanId,
+                    workoutDayId: req.params.workoutDayId,
+                    sessionId: req.params.sessionId,
+                    completedAt: new Date(req.body.completedAt),
+                });
+
+                return res.status(200).send(result);
+            } catch (error) {
+                app.log.error(error);
+
+                if (error instanceof NotFoundError) {
+                    return res
+                        .status(404)
+                        .send({ error: error.message, code: "NOT_FOUND" });
+                }
+
+                if (error instanceof ForbiddenError) {
+                    return res.status(403).send({
+                        error: error.message,
+                        code: "FORBIDDEN",
                     });
                 }
 
