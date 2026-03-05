@@ -35,3 +35,24 @@ export class UnauthorizedError extends ApiError {
         this.name = "UnauthorizedError";
     }
 }
+
+export class ForbiddenError extends ApiError {
+    constructor(message: string) {
+        super(403, message);
+        this.name = "ForbiddenError";
+    }
+}
+
+export class WorkoutPlanNotActiveError extends ApiError {
+    constructor(message: string) {
+        super(400, message);
+        this.name = "WorkoutPlanNotActiveError";
+    }
+}
+
+export class WorkoutSessionAlreadyStartedError extends ApiError {
+    constructor(message: string) {
+        super(409, message);
+        this.name = "WorkoutSessionAlreadyStartedError";
+    }
+}
