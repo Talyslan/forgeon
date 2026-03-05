@@ -102,7 +102,24 @@ export class CreateWorkoutPlan {
 
             if (!result) throw new NotFoundError("Workout plan not found");
 
-            return result;
+            return {
+                id: result.id,
+                name: result.name,
+                workoutDays: result.workoutDays.map((day) => ({
+                  name: day.name,
+                  weekDay: day.weekDay,
+                  isRest: day.isRest,
+                  estimatedDurationInSeconds: day.estimatedDurationInSeconds,
+                  coverImageUrl: day.coverImageUrl ?? undefined,
+                  exercises: day.exercises.map((exercise) => ({
+                    order: exercise.order,
+                    name: exercise.name,
+                    sets: exercise.sets,
+                    reps: exercise.reps,
+                    restTimeInSeconds: exercise.restTimeInSeconds,
+                  })),
+                })),
+              };
         });
     }
 }
