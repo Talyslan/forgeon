@@ -9,12 +9,13 @@ import {
 } from "fastify-type-provider-zod";
 
 import { env } from "./config/env";
+import AIRoutes from "./routes/ai.route";
 import AuthRoute from "./routes/auth.route";
 import HealthRoute from "./routes/health.route";
 import HomeRoute from "./routes/home.route";
 import StatsRoute from "./routes/stats.route";
 import SwaggerRoute from "./routes/swagger.route";
-import UserRoutes from "./routes/users.route";  
+import UserRoutes from "./routes/users.route";
 import WorkoutPlansRoute from "./routes/workoutPlans.route";
 
 export class Application {
@@ -106,5 +107,6 @@ export class Application {
         await this.app.register(HomeRoute, { prefix: "/home" });
         await this.app.register(StatsRoute, { prefix: "/stats" });
         await this.app.register(UserRoutes, { prefix: "/users" });
+        await this.app.register(AIRoutes, { prefix: "/ai" });
     }
 }
