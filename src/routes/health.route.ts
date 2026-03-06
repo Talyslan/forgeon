@@ -7,8 +7,8 @@ export default async function HealthRoute(app: FastifyInstance) {
         method: "GET",
         url: "/",
         schema: {
-            description: "Hello world",
-            tags: ["Hello World"],
+            description: "Health check",
+            tags: ["Forgeon API Health"],
             response: {
                 200: z.object({
                     message: z.string(),
@@ -16,7 +16,7 @@ export default async function HealthRoute(app: FastifyInstance) {
             },
         },
         handler: () => {
-            return { message: "Hello world" };
+            return { message: "Forgeon API is running!" };
         },
     });
 }

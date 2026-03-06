@@ -97,7 +97,7 @@ export class Application {
     }
 
     private async routes() {
-        await this.app.register(HealthRoute, { prefix: "/" });
+        await this.app.register(HealthRoute);
         await this.app.register(AuthRoute);
         await this.app.register(SwaggerRoute, { prefix: "/swagger.json" });
         await this.app.register(WorkoutPlansRoute, {
