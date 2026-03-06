@@ -16,6 +16,7 @@ export default async function UserRoutes(app: FastifyInstance) {
         method: "GET",
         url: "/me",
         schema: {
+            operationId: "getUserTrainData",
             tags: ["Users"],
             summary: "Get current user train data",
             response: {
@@ -47,6 +48,7 @@ export default async function UserRoutes(app: FastifyInstance) {
         method: "PUT",
         url: "/me",
         schema: {
+            operationId: "upsertUserTrainData",
             tags: ["Users"],
             summary: "Upsert user (me) train data",
             body: UpsertUserTrainDataBodySchema,
