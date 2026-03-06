@@ -4,6 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -11,6 +12,10 @@
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-inter-tight);
   --font-anton: var(--font-anton);
+  --color-streak: var(--streak);
+  --color-streak-foreground: var(--streak-foreground);
+  --color-consistency-full: var(--primary);
+  --color-consistency-half: var(--primary-foreground);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -69,6 +74,8 @@
   --border: oklch(0.92 0.004 286.32);
   --input: oklch(0.92 0.004 286.32);
   --ring: oklch(0.708 0 0);
+  --streak: oklch(0.95 0.05 50);
+  --streak-foreground: oklch(0.65 0.2 50);
   --chart-1: oklch(0.809 0.105 251.813);
   --chart-2: oklch(0.623 0.214 259.815);
   --chart-3: oklch(0.546 0.245 262.881);
