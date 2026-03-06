@@ -13,6 +13,7 @@ import { env } from "./config/env";
 import AuthRoute from "./routes/auth.route";
 import HealthRoute from "./routes/health.route";
 import HomeRoute from "./routes/home.route";
+import StatsRoute from "./routes/stats.route";
 import SwaggerRoute from "./routes/swagger.route";
 import WorkoutPlansRoute from "./routes/workoutPlans.route";
 
@@ -99,7 +100,10 @@ export class Application {
         await this.app.register(HealthRoute, { prefix: "/" });
         await this.app.register(AuthRoute);
         await this.app.register(SwaggerRoute, { prefix: "/swagger.json" });
-        await this.app.register(WorkoutPlansRoute, { prefix: "/workout-plans" });
+        await this.app.register(WorkoutPlansRoute, {
+            prefix: "/workout-plans",
+        });
         await this.app.register(HomeRoute, { prefix: "/home" });
+        await this.app.register(StatsRoute, { prefix: "/stats" });
     }
 }
