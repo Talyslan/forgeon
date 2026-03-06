@@ -31,7 +31,9 @@ export default async function UserRoutes(app: FastifyInstance) {
             }
 
             const getUserTrainData = new GetUserTrainData();
-            const data = await getUserTrainData.execute(session.user.id);
+            const data = await getUserTrainData.execute({
+                userId: session.user.id,
+            });
 
             return res.status(200).send(data);
         },

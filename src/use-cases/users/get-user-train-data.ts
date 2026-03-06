@@ -1,18 +1,22 @@
 import { prisma } from "../../lib/database";
 
+interface InputDto {
+    userId: string;
+}
+
 interface OutputDto {
     userId: string;
     userName: string;
     weightInGrams: number;
     heightInCentimeters: number;
     age: number;
-    bodyFatPercentage: number; // 1 representa 100%
+    bodyFatPercentage: number;
 }
 
 export class GetUserTrainData {
-    public async execute(userId: string): Promise<OutputDto | null> {
+    public async execute(dto: InputDto): Promise<OutputDto | null> {
         const user = await prisma.user.findUnique({
-            where: { id: userId },
+            where: { id: dto.userId },
             select: {
                 id: true,
                 name: true,
@@ -33,7 +37,7 @@ export class GetUserTrainData {
             weightInGrams: user.weightInGrams,
             heightInCentimeters: user.heightInCentimeters!,
             age: user.age!,
-            bodyFatPercentage: user.bodyFatPercentage! / 100, // Converte 100 para 1 (100%)
+            bodyFatPercentage: user.bodyFatPercentage!,
         };
     }
 }
