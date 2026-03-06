@@ -8,6 +8,8 @@ import { ErrorSchema } from "../schemas/errors.schema";
 import {
     GetWorkoutDayResponseSchema,
     GetWorkoutPlanResponseSchema,
+    GetWorkoutPlansParamsSchema,
+    GetWorkoutPlansResponseSchema,
     WorkoutPlanSchema,
 } from "../schemas/workout-plan.schema";
 import {
@@ -18,6 +20,7 @@ import {
 import { CreateWorkoutPlan } from "../use-cases/workout-plans/create-workout-plan";
 import { GetWorkoutDay } from "../use-cases/workout-plans/get-workout-day";
 import { GetWorkoutPlan } from "../use-cases/workout-plans/get-workout-plan";
+import { GetWorkoutPlans } from "../use-cases/workout-plans/get-workout-plans";
 import { StartWorkoutSession } from "../use-cases/workout-plans/start-workout-session";
 import { UpdateWorkoutSession } from "../use-cases/workout-plans/update-workout-session";
 import {
@@ -28,6 +31,49 @@ import {
 } from "../util/errors";
 
 export default async function WorkoutPlansRoute(app: FastifyInstance) {
+    app.withTypeProvider<ZodTypeProvider>().route({
+        method: "GET",
+        url: "/",
+        schema: {
+            tags: ["Workout Plan"],
+            summary: "Get all workout plans",
+            querystring: GetWorkoutPlansParamsSchema,
+            response: {
+                200: GetWorkoutPlansResponseSchema,
+                401: ErrorSchema,
+                500: ErrorSchema,
+            },
+        },
+        handler: async (req, res) => {
+            try {
+                const session = await auth.api.getSession({
+                    headers: fromNodeHeaders(req.headers),
+                });
+
+                if (!session) {
+                    return res.status(401).send({
+                        error: "Unauthorized",
+                        code: "UNAUTHORIZED",
+                    });
+                }
+
+                const getWorkoutPlans = new GetWorkoutPlans();
+                const result = await getWorkoutPlans.execute({
+                    userId: session.user.id,
+                    active: req.query.active,
+                });
+
+                return res.status(200).send(result);
+            } catch (error) {
+                app.log.error(error);
+                return res.status(500).send({
+                    error: "Internal Server Error",
+                    code: "INTERNAL_SERVER_ERROR",
+                });
+            }
+        },
+    });
+
     app.withTypeProvider<ZodTypeProvider>().route({
         method: "POST",
         url: "/",
