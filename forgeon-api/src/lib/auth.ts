@@ -6,9 +6,13 @@ import { env } from "../config/env";
 import { prisma } from "./database";
 
 export const auth = betterAuth({
+    baseURL: env.BETTER_AUTH_URL,
     trustedOrigins: [env.CLIENT_URL],
-    emailAndPassword: {
-        enabled: true,
+    socialProviders: {
+        google: {
+            clientId: env.GOOGLE_CLIENT_ID,
+            clientSecret: env.GOOGLE_CLIENT_SECRET,
+        },
     },
     database: prismaAdapter(prisma, {
         provider: "postgresql",
