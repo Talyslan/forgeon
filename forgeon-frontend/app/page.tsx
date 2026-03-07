@@ -6,9 +6,9 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 import { Flame } from "lucide-react";
+import { BottomNav } from "./_components/bottom-nav";
 import { ConsistencyTracker } from "./_components/consistency-tracker";
 import { WorkoutDayCard } from "./_components/workout-day-card";
-import { BottomNav } from "./_components/bottom-nav";
 
 export default async function Home() {
   const session = await authClient.getSession({
@@ -20,9 +20,7 @@ export default async function Home() {
   if (!session.data?.user) redirect("/auth");
 
   const today = dayjs();
-  const [homeData] = await Promise.all([
-    getHomeData(today.format("YYYY-MM-DD")),
-  ]);
+  const homeData = await getHomeData(today.format("YYYY-MM-DD"));
 
   if (homeData.status !== 200) {
     throw new Error("Failed to fetch home data");
@@ -30,8 +28,6 @@ export default async function Home() {
 
   const { todayWorkoutDay, workoutStreak, consistencyByDay } = homeData.data;
   const userName = session.data.user.name?.split(" ")[0] ?? "";
-
-  console.log(homeData);
 
   return (
     <div className="flex min-h-svh flex-col bg-background pb-24">
