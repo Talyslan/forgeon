@@ -4,7 +4,7 @@ import { authClient } from "@/app/_lib/auth-client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-export function SignInWithGoogle() {
+export const SignInWithGoogle = () => {
   const handleGoogleLogin = async () => {
     const { error } = await authClient.signIn.social({
       provider: "google",
@@ -31,4 +31,4 @@ export function SignInWithGoogle() {
       Fazer login com Google
     </Button>
   );
-}
+};
