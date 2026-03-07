@@ -11,7 +11,7 @@ import { getHomeData } from "@/app/_lib/api/fetch-generated";
 import { cn } from "@/lib/utils";
 
 interface BottomNavProps {
-  activePage?: "home" | "calendar"  | "stats";
+  activePage?: "home" | "calendar" | "stats" | "profile";
 }
 
 export async function BottomNav({ activePage = "home" }: BottomNavProps) {
@@ -59,19 +59,26 @@ export async function BottomNav({ activePage = "home" }: BottomNavProps) {
       <button className="rounded-full bg-primary p-4">
         <Sparkles className="size-6 text-primary-foreground" />
       </button>
-       <Link href="/stats" className="p-3">
+      <Link href="/stats" className="p-3">
         <ChartNoAxesColumn
           className={cn(
             "size-6",
             activePage === "stats"
               ? "text-foreground"
-              : "text-muted-foreground"
+              : "text-muted-foreground",
           )}
         />
       </Link>
-      <button className="p-3">
-        <UserRound className="size-6 text-muted-foreground" />
-      </button>
+      <Link href="/profile" className="p-3">
+        <UserRound
+          className={cn(
+            "size-6",
+            activePage === "profile"
+              ? "text-foreground"
+              : "text-muted-foreground",
+          )}
+        />
+      </Link>
     </nav>
   );
 }
