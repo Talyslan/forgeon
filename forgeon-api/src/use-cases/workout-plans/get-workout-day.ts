@@ -90,9 +90,9 @@ export class GetWorkoutDay {
             sessions: day.sessions.map((s) => ({
                 id: s.id,
                 workoutDayId: s.workoutDayId,
-                startedAt: dayjs.utc(s.startedAt).format("YYYY-MM-DD"),
+                startedAt: dayjs.utc(s.startedAt).toISOString(),
                 completedAt: s.completedAt
-                    ? dayjs.utc(s.completedAt).format("YYYY-MM-DD")
+                    ? dayjs.utc(s.completedAt).toISOString()
                     : undefined,
             })),
         };
