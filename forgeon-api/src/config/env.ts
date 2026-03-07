@@ -10,6 +10,7 @@ const envSchema = z.object({
     CLIENT_URL: z.url(),
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
+    GOOGLE_GENERATIVE_AI_API_KEY: z.string(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
