@@ -46,7 +46,7 @@ export class GetWorkoutPlan {
             );
         }
 
-        return {
+        const result = {
             id: plan.id,
             name: plan.name,
             workoutDays: plan.workoutDays.map((day) => ({
@@ -54,10 +54,14 @@ export class GetWorkoutPlan {
                 weekDay: day.weekDay,
                 name: day.name,
                 isRest: day.isRest,
-                coverImageUrl: day.coverImageUrl ?? undefined,
+                coverImageUrl:
+                    day.coverImageUrl && day.coverImageUrl.trim() !== ""
+                        ? day.coverImageUrl
+                        : undefined,
                 estimatedDurationInSeconds: day.estimatedDurationInSeconds,
                 exercisesCount: day._count.exercises,
             })),
         };
+        return result;
     }
 }

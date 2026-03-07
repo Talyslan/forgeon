@@ -75,7 +75,10 @@ export class GetWorkoutDay {
             id: day.id,
             name: day.name,
             isRest: day.isRest,
-            coverImageUrl: day.coverImageUrl ?? undefined,
+            coverImageUrl:
+                day.coverImageUrl && day.coverImageUrl.trim() !== ""
+                    ? day.coverImageUrl
+                    : undefined,
             estimatedDurationInSeconds: day.estimatedDurationInSeconds,
             weekDay: day.weekDay,
             exercises: day.exercises.map((ex) => ({

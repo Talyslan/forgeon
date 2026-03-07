@@ -9,7 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ai-sdk/react": "^3.0.118",
     "@hookform/resolvers": "^5.2.2",
+    "ai": "^6.0.116",
     "better-auth": "^1.5.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -17,10 +19,12 @@
     "dotenv": "^17.3.1",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",
+    "nuqs": "^2.8.9",
     "radix-ui": "^1.4.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.71.2",
+    "streamdown": "^2.4.0",
     "tailwind-merge": "^3.5.0",
     "zod": "^4.3.6"
   },

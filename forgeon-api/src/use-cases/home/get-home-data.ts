@@ -81,7 +81,11 @@ export class GetHomeData {
                     weekDay: dayInPlan.weekDay,
                     estimatedDurationInSeconds:
                         dayInPlan.estimatedDurationInSeconds,
-                    coverImageUrl: dayInPlan.coverImageUrl ?? undefined,
+                    coverImageUrl:
+                        dayInPlan.coverImageUrl &&
+                        dayInPlan.coverImageUrl.trim() !== ""
+                            ? dayInPlan.coverImageUrl
+                            : undefined,
                     exercisesCount: dayInPlan._count.exercises,
                 };
             }
