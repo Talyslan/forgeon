@@ -14,6 +14,7 @@ const envSchema = z.object({
     NODE_ENV: z
         .enum(["development", "production", "test"])
         .default("development"),
+    SUBDOMAIN: z.string().optional(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
