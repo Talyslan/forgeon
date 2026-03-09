@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc.js";
+import utc from "dayjs/plugin/utc";
 
 import { prisma } from "../../lib/database";
 import { NotFoundError } from "../../util/errors";
