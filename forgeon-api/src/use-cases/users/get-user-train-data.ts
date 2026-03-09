@@ -1,4 +1,4 @@
-import { prisma } from "../../lib/database";
+import { prisma } from "../../lib/database.js";
 
 interface InputDto {
     userId: string;

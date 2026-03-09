@@ -1,6 +1,6 @@
 import z from "zod";
 
-import { WeekDay } from "../generated/prisma/enums";
+import { WeekDay } from "../generated/prisma/enums.js";
 
 export const WorkoutPlanSchema = z.object({
     id: z.uuid(),

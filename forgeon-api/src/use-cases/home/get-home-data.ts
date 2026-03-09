@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 
 import type { WeekDay } from "../../generated/prisma/enums";
-import { prisma } from "../../lib/database";
+import { prisma } from "../../lib/database.js";
 
 dayjs.extend(utc);
 

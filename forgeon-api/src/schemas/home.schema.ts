@@ -1,6 +1,6 @@
 import z from "zod";
 
-import { WeekDay } from "../generated/prisma/enums";
+import { WeekDay } from "../generated/prisma/enums.js";
 
 export const GetHomeParamsSchema = z.object({
     date: z.iso.date(), // YYYY-MM-DD

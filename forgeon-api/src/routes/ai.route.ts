@@ -12,11 +12,11 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
 
 import { WeekDay } from "../generated/prisma/enums.js";
-import { auth } from "../lib/auth";
-import { GetUserTrainData } from "../use-cases/users/get-user-train-data";
-import { UpsertUserTrainData } from "../use-cases/users/upsert-user-train-data";
-import { CreateWorkoutPlan } from "../use-cases/workout-plans/create-workout-plan";
-import { GetWorkoutPlans } from "../use-cases/workout-plans/get-workout-plans";
+import { auth } from "../lib/auth.js";
+import { GetUserTrainData } from "../use-cases/users/get-user-train-data.js";
+import { UpsertUserTrainData } from "../use-cases/users/upsert-user-train-data.js";
+import { CreateWorkoutPlan } from "../use-cases/workout-plans/create-workout-plan.js";
+import { GetWorkoutPlans } from "../use-cases/workout-plans/get-workout-plans.js";
 
 const SYSTEM_PROMPT = `Você é um personal trainer virtual especialista em montagem de planos de treino personalizados.
 

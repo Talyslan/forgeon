@@ -1,13 +1,13 @@
 import type { FastifyInstance } from "fastify";
 
-import { auth } from "../lib/auth";
+import { auth } from "../lib/auth.js";
 
 export default async function AuthRoute(app: FastifyInstance) {
     app.route({
         method: ["GET", "POST"],
         url: "/api/auth/*",
         schema: {
-            hide: true
+            hide: true,
         },
         async handler(request, reply) {
             try {

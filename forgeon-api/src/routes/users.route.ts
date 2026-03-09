@@ -2,14 +2,14 @@ import { fromNodeHeaders } from "better-auth/node";
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 
-import { auth } from "../lib/auth";
-import { ErrorSchema } from "../schemas/errors.schema";
+import { auth } from "../lib/auth.js";
+import { ErrorSchema } from "../schemas/errors.schema.js";
 import {
     UpsertUserTrainDataBodySchema,
     UserTrainDataSchema,
-} from "../schemas/user.schema";
-import { GetUserTrainData } from "../use-cases/users/get-user-train-data";
-import { UpsertUserTrainData } from "../use-cases/users/upsert-user-train-data";
+} from "../schemas/user.schema.js";
+import { GetUserTrainData } from "../use-cases/users/get-user-train-data.js";
+import { UpsertUserTrainData } from "../use-cases/users/upsert-user-train-data.js";
 
 export default async function UserRoutes(app: FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>().route({

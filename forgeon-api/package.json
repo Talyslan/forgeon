@@ -5,7 +5,8 @@
     "type": "module",
     "scripts": {
         "dev": "tsx --watch src/server.ts",
-        "build": "pnpm exec prisma generate && esbuild src/server.ts --bundle --platform=node --format=esm --outfile=dist/server.js --external:@prisma/client --external:prisma --banner:js=\"import { createRequire } from 'module'; const require = createRequire(import.meta.url);\""
+        "build": "pnpm exec prisma generate && tsc",
+        "start": "node dist/server.js"
     },
     "engines": {
         "node": "24.x"

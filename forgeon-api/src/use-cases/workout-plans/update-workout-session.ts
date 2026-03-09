@@ -1,5 +1,5 @@
-import { prisma } from "../../lib/database";
-import { ForbiddenError, NotFoundError } from "../../util/errors";
+import { prisma } from "../../lib/database.js";
+import { ForbiddenError, NotFoundError } from "../../util/errors.js";
 
 interface InputDTO {
     userId: string;

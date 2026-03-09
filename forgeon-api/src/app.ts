@@ -8,15 +8,15 @@ import {
     validatorCompiler,
 } from "fastify-type-provider-zod";
 
-import { env } from "./config/env";
-import AIRoutes from "./routes/ai.route";
-import AuthRoute from "./routes/auth.route";
-import HealthRoute from "./routes/health.route";
-import HomeRoute from "./routes/home.route";
-import StatsRoute from "./routes/stats.route";
-import SwaggerRoute from "./routes/swagger.route";
-import UserRoutes from "./routes/users.route";
-import WorkoutPlansRoute from "./routes/workoutPlans.route";
+import { env } from "./config/env.js";
+import AIRoutes from "./routes/ai.route.js";
+import AuthRoute from "./routes/auth.route.js";
+import HealthRoute from "./routes/health.route.js";
+import HomeRoute from "./routes/home.route.js";
+import StatsRoute from "./routes/stats.route.js";
+import SwaggerRoute from "./routes/swagger.route.js";
+import UserRoutes from "./routes/users.route.js";
+import WorkoutPlansRoute from "./routes/workoutPlans.route.js";
 
 export class Application {
     private readonly app: FastifyInstance;

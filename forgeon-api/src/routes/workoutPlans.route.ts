@@ -3,32 +3,32 @@ import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
 
-import { auth } from "../lib/auth";
-import { ErrorSchema } from "../schemas/errors.schema";
+import { auth } from "../lib/auth.js";
+import { ErrorSchema } from "../schemas/errors.schema.js";
 import {
     GetWorkoutDayResponseSchema,
     GetWorkoutPlanResponseSchema,
     GetWorkoutPlansParamsSchema,
     GetWorkoutPlansResponseSchema,
     WorkoutPlanSchema,
-} from "../schemas/workout-plan.schema";
+} from "../schemas/workout-plan.schema.js";
 import {
     UpdateWorkoutSessionBodySchema,
     UpdateWorkoutSessionResponseSchema,
     WorkoutSessionSchema,
-} from "../schemas/workout-session.schema";
-import { CreateWorkoutPlan } from "../use-cases/workout-plans/create-workout-plan";
-import { GetWorkoutDay } from "../use-cases/workout-plans/get-workout-day";
-import { GetWorkoutPlan } from "../use-cases/workout-plans/get-workout-plan";
-import { GetWorkoutPlans } from "../use-cases/workout-plans/get-workout-plans";
-import { StartWorkoutSession } from "../use-cases/workout-plans/start-workout-session";
-import { UpdateWorkoutSession } from "../use-cases/workout-plans/update-workout-session";
+} from "../schemas/workout-session.schema.js";
+import { CreateWorkoutPlan } from "../use-cases/workout-plans/create-workout-plan.js";
+import { GetWorkoutDay } from "../use-cases/workout-plans/get-workout-day.js";
+import { GetWorkoutPlan } from "../use-cases/workout-plans/get-workout-plan.js";
+import { GetWorkoutPlans } from "../use-cases/workout-plans/get-workout-plans.js";
+import { StartWorkoutSession } from "../use-cases/workout-plans/start-workout-session.js";
+import { UpdateWorkoutSession } from "../use-cases/workout-plans/update-workout-session.js";
 import {
     ForbiddenError,
     NotFoundError,
     WorkoutPlanNotActiveError,
     WorkoutSessionAlreadyStartedError,
-} from "../util/errors";
+} from "../util/errors.js";
 
 export default async function WorkoutPlansRoute(app: FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>().route({

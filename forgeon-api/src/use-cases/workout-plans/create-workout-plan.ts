@@ -1,6 +1,6 @@
 import type { WeekDay } from "../../generated/prisma/enums";
-import { prisma } from "../../lib/database";
-import { NotFoundError } from "../../util/errors";
+import { prisma } from "../../lib/database.js";
+import { NotFoundError } from "../../util/errors.js";
 
 interface InputDTO {
     userId: string;
@@ -106,20 +106,20 @@ export class CreateWorkoutPlan {
                 id: result.id,
                 name: result.name,
                 workoutDays: result.workoutDays.map((day) => ({
-                  name: day.name,
-                  weekDay: day.weekDay,
-                  isRest: day.isRest,
-                  estimatedDurationInSeconds: day.estimatedDurationInSeconds,
-                  coverImageUrl: day.coverImageUrl ?? undefined,
-                  exercises: day.exercises.map((exercise) => ({
-                    order: exercise.order,
-                    name: exercise.name,
-                    sets: exercise.sets,
-                    reps: exercise.reps,
-                    restTimeInSeconds: exercise.restTimeInSeconds,
-                  })),
+                    name: day.name,
+                    weekDay: day.weekDay,
+                    isRest: day.isRest,
+                    estimatedDurationInSeconds: day.estimatedDurationInSeconds,
+                    coverImageUrl: day.coverImageUrl ?? undefined,
+                    exercises: day.exercises.map((exercise) => ({
+                        order: exercise.order,
+                        name: exercise.name,
+                        sets: exercise.sets,
+                        reps: exercise.reps,
+                        restTimeInSeconds: exercise.restTimeInSeconds,
+                    })),
                 })),
-              };
+            };
         });
     }
 }

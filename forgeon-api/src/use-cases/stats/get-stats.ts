@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 
-import { prisma } from "../../lib/database";
-import { NotFoundError } from "../../util/errors";
+import { prisma } from "../../lib/database.js";
+import { NotFoundError } from "../../util/errors.js";
 
 dayjs.extend(utc);
 

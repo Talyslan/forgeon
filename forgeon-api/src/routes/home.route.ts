@@ -2,13 +2,13 @@ import { fromNodeHeaders } from "better-auth/node";
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 
-import { auth } from "../lib/auth";
-import { ErrorSchema } from "../schemas/errors.schema";
+import { auth } from "../lib/auth.js";
+import { ErrorSchema } from "../schemas/errors.schema.js";
 import {
     GetHomeParamsSchema,
     GetHomeResponseSchema,
-} from "../schemas/home.schema";
-import { GetHomeData } from "../use-cases/home/get-home-data";
+} from "../schemas/home.schema.js";
+import { GetHomeData } from "../use-cases/home/get-home-data.js";
 
 export default async function HomeRoute(app: FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>().route({

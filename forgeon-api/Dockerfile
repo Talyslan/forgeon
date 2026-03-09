@@ -19,17 +19,21 @@ FROM base AS deps
 RUN pnpm install --frozen-lockfile
 
 # ------- Build -------
-FROM deps AS build
+FROM deps AS builder
 
-COPY . .
-
+COPY . . # Copy source for build
 RUN pnpm run build
 
-# ------- Production -------
-FROM base AS production
+# Stage 2: Production
+FROM base AS runner
 
-RUN pnpm install --frozen-lockfile --prod --ignore-scripts
+WORKDIR /app
 
-COPY --from=build /app/dist ./dist
+# Copy built assets and dependencies
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+EXPOSE 8080
 
 CMD ["node", "dist/server.js"]

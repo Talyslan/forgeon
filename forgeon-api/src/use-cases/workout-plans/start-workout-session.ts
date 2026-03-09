@@ -1,10 +1,10 @@
-import { prisma } from "../../lib/database";
+import { prisma } from "../../lib/database.js";
 import {
     ForbiddenError,
     NotFoundError,
     WorkoutPlanNotActiveError,
     WorkoutSessionAlreadyStartedError,
-} from "../../util/errors";
+} from "../../util/errors.js";
 
 interface InputDTO {
     userId: string;
@@ -76,4 +76,3 @@ export class StartWorkoutSession {
         };
     }
 }
-
