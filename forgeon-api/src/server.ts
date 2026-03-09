@@ -6,4 +6,4 @@ const PORT = env.PORT;
 const app = new Application();
 
 await app.init();
-await app.start(PORT);
+await app.start(PORT, "0.0.0.0");

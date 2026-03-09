@@ -46,9 +46,9 @@ export class Application {
         await this.routes();
     }
 
-    public async start(port: number) {
+    public async start(port: number, host?: string) {
         try {
-            await this.app.listen({ port });
+            await this.app.listen({ port, host });
             console.log(`🚀 Server running on port ${port}`);
         } catch (err) {
             this.app.log.error(err);
