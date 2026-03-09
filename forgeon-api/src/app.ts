@@ -58,8 +58,8 @@ export class Application {
                 },
                 servers: [
                     {
-                        description: "Local",
-                        url: "http://localhost:8080",
+                        description: "Forgeon API",
+                        url: env.BETTER_AUTH_URL,
                     },
                 ],
             },
