@@ -23,7 +23,21 @@ export class Application {
 
     constructor() {
         console.log("App initialized");
-        this.app = Fastify({ logger: true });
+        const envToLogger = {
+            development: {
+                transport: {
+                    target: "pino-pretty",
+                    options: {
+                        translateTime: "HH:MM:ss Z",
+                        ignore: "pid,hostname",
+                    },
+                },
+            },
+            production: true,
+            test: false,
+        };
+
+        this.app = Fastify({ logger: envToLogger[env.NODE_ENV] });
     }
 
     public async init() {
